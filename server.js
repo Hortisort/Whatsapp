@@ -57,9 +57,7 @@ app.post("/webhook", async (req, res) => {
 
       // Check if this message ID has already been processed
       if (processedMessageIds.has(messageId)) {
-        console.log(
-          Message ID ${messageId} has already been processed. Skipping...
-        );
+        console.log(`Message ID ${messageId} has already been processed. Skipping...`);
         return;
       }
 
@@ -75,9 +73,9 @@ app.post("/webhook", async (req, res) => {
       // Send the response message asynchronously
       await axios({
         method: "POST",
-        url: https://graph.facebook.com/v21.0/${businessPhoneNumberId}/messages,
+        url: `https://graph.facebook.com/v21.0/${businessPhoneNumberId}/messages`,
         headers: {
-          Authorization: Bearer ${GRAPH_API_TOKEN},
+          Authorization: `Bearer ${GRAPH_API_TOKEN}`,
         },
         data: {
           messaging_product: "whatsapp",
@@ -86,14 +84,14 @@ app.post("/webhook", async (req, res) => {
         },
       });
 
-      console.log(Response sent to ${message.from});
+      console.log(`Response sent to ${message.from}`);
 
       // Mark the message as read
       await axios({
         method: "POST",
-        url: https://graph.facebook.com/v21.0/${businessPhoneNumberId}/messages,
+        url: `https://graph.facebook.com/v21.0/${businessPhoneNumberId}/messages`,
         headers: {
-          Authorization: Bearer ${GRAPH_API_TOKEN},
+          Authorization: `Bearer ${GRAPH_API_TOKEN}`,
         },
         data: {
           messaging_product: "whatsapp",
@@ -102,7 +100,7 @@ app.post("/webhook", async (req, res) => {
         },
       });
 
-      console.log(Message ID ${messageId} marked as read.);
+      console.log(`Message ID ${messageId} marked as read.`);
     }
   } catch (error) {
     console.error(
@@ -119,10 +117,10 @@ app.get("/get-webhook-data", (req, res) => {
 
 // Simple route for root
 app.get("/", (req, res) => {
-  res.send(<pre>Nothing to see here. Checkout README.md to start.</pre>);
+  res.send("<pre>Nothing to see here. Checkout README.md to start.</pre>");
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(Server is listening on port: ${PORT});
+  console.log(`Server is listening on port: ${PORT}`);
 });
